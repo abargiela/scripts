@@ -2,7 +2,8 @@
 
 # This script was used to stress a iscsi partition and get the performance of it.
 # My ideia was write/read simultaneously in the iscsi mount point to see how it behaves.
-# So basicly I use dd to write and a simple ls to read the partition.
+# So basicly I use dd to write and a simple md5sum to read the partition.
+# You will need to Download the script at: https://github.com/abargiela/scripts/blob/master/io_stress_reading.sh 
 
 PATH_ISO="$HOME" #This path should be the partition where you want to stress
 OUTPUT_INFO="/tmp"
@@ -16,17 +17,6 @@ write_file(){
 		date >> ${OUTPUT_INFO}/dd.txt && dd if=/dev/zero  of=${PATH_ISO}/teste.iso count=1000000 bs=1048 >> ${OUTPUT_INFO}/dd.txt 2>&1 && echo "";
 	done
      }
-
-#read_file(){
-#	echo "
-#	Initializing io reading...
-#	When you want to terminate the test type CTRL+C
-#	"
-#	while : ; do
-#		ls ${PATH_ISO}/; sleep 1;
-#	done
-	echo "Not implemented yet."
-#}
 
 average(){
 	if [ -e ${OUTPUT_INFO}/dd.txt ]; then
@@ -60,7 +50,7 @@ case "$1" in
 			write_file
 	;;
 	-r|read)
-			read_file
+			echo "Download the script at: https://github.com/abargiela/scripts/blob/master/io_stress_reading.sh"
 	;;
 	-av|average)
 			average
@@ -74,12 +64,12 @@ case "$1" in
 	-h|-help|--help|help|*)
 			echo "
 			-w|write 		Start write test.
-			-r|read 		Start read test.
-			-av|average 	Display average of test.
+			-r|read 		Download the script at: https://github.com/abargiela/scripts/blob/master/io_stress_reading.sh.
+			-av|average 		Display average of test.
 			-lv|lv 			Display lowest value of the test.
 			-hv|hv 			Display higher value of the test.
 			-h|help			Help.
 
-			Usage: ./io_stress.sh -w|-r|-av|-lv|-hv|-h|write|read|average|lv|hv|help"
+			Usage: ./io_stress_write.sh -w|-r|-av|-lv|-hv|-h|write|read|average|lv|hv|help"
     ;;
 esac
