@@ -1,7 +1,10 @@
-
 #!/bin/bash
-#Change this path, to the location where you want to stress.
-PATH_ISO="$HOME"
+
+# This script was used to stress a iscsi partition and get the performance of it.
+# My ideia was write/read simultaneously in the iscsi mount point to see how it behaves.
+# So basicly I use dd to write and a simple ls to read the partition.
+
+PATH_ISO="$HOME" #This path should be the partition where you want to stress
 OUTPUT_INFO="/tmp"
 
 write_file(){
