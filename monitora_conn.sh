@@ -13,8 +13,8 @@ fi
 while :
 do	
 	echo "When you want to exit type CTRL+C, but wait to collect some data at ${LOG_FILE}."
-        DATA=$(date +%d\|%m\|%Y\|%H\|%M);
+        DATA=$(date +%d\/%m\/%Y\_%H\:%M);
         MONITORA=$(netstat -ntau | egrep -i "${STATE}" | egrep -i "${PORT}" | wc -l);
-	echo ${MONITORA} ${DATA} >> ${LOG_FILE};
+	echo "Established Connections: "${MONITORA} "|" "Date: "${DATA} >> ${LOG_FILE};
         sleep 60;        
 done
