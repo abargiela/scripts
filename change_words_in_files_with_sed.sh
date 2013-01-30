@@ -15,7 +15,7 @@
 #      REVISION:  ---
 #===============================================================================
 
-#Directory you want scan.
+#Directory you want scan and make the sed.
 DIR="/tmp"
 #What do you want to search
 SEARCH="oldStuff";
