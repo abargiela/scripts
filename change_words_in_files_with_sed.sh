@@ -83,7 +83,7 @@ if [[ -d $DIR ]]; then
     search_dir;
 elif [[ -f ${FILE} ]]; then
     search_file;
-elif [[ -z ${DIR} ]] || [[ -z ${FILE} ]] || [[ -z $1 ]] || [[ -z $2 ]]; then
+elif [[ -z ${DIR} ]] || [[ -z ${FILE} ]] || [[ -z ${OLD} ]] || [[ -z ${NEW} ]]; then
     getHelp;
     exit 1;
 fi
