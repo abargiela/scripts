@@ -61,20 +61,24 @@ while getopts "d:f:n:o:h" file ; do
 done
 
 search_dir(){
+    # Get data and parse
     DATA=`egrep ${OLD} ${DIR} -R  | awk -F \: '{print $1}' | sed 's/ //g'`
     echo $DATA | tr ' ' '\n' > /tmp/tmp.file
-    
+
+    # Get each file and execute the file backup and change the content
     for i in `cat /tmp/tmp.file`;do
         cp -a ${i[@]} ${i[@]}-backup-`date +%d%m%Y-%s`;
         sed -i "s/"${OLD}"/"${NEW}"/g" ${i[@]};
     done
 }
 
+# Modify a specific file
 search_file(){
     cp -a ${FILE} "${FILE}_backup_`date +%d%m%Y_%s`";
     sed -i "s/"${OLD}"/"${NEW}"/g" ${FILE};
 }
 
+# Make the basic verifications.
 if [[ -d $DIR ]]; then
     search_dir;
 elif [[ -f ${FILE} ]]; then
