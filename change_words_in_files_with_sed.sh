@@ -7,7 +7,7 @@
 # 
 #   DESCRIPTION:  Change words in multiple files 
 # 
-#       OPTIONS:  ./getTwitter.sh -h
+#       OPTIONS:  ./change_words_in_files_with_sed.sh -h
 #         NOTES:  Your sugestion is welcome to improve this script.
 #        AUTHOR:  Alexandre Bargiela [ abargiela@gmail.com ]
 #       VERSION:  1.0
@@ -15,15 +15,71 @@
 #      REVISION:  ---
 #===============================================================================
 
-#Directory you want scan and make the sed.
-DIR="/tmp"
-#What do you want to search
-SEARCH="oldStuff";
-#Generally you will change what you search, so, I put the variable FROM only for readability.
-FROM="${SEARCH}";
-#As will be.
-TO="newStuff";
+getHelp(){
+    echo -e "
+    Usage: ./change_words_in_files_with_sed.sh -d[for directory] or -f[for file] file -o oldWord -n newWord
+    Examples:
+        Directory: ./change_words_in_files_with_sed.sh -d /tmp -o oldStuff -n newStuff
+        File: ./change_words_in_files_with_sed.sh -f /tmp/file1.txt -o oldStuff -n newStuff 
 
-for i in `egrep ${SEARCH} ${DIR}/* -R | awk -F \: '{print $1}'`;do
-	sed -i "s/${FROM}/${TO}/g" $i
+    -d Directory you want scan to make.
+    -f Especific file to change.	
+    -o Old word to search and replace.
+    -n New word to be replaced.";
+}
+
+# Clean variables
+DIR=
+FILE=
+OLD=
+NEW=
+
+# Get parameters
+while getopts "d:f:n:o:h" file ; do
+    case ${file} in
+        d)
+            DIR="${OPTARG}";
+            ;;
+        f)
+            FILE="${OPTARG}";
+            ;;
+        o) 
+            OLD="${OPTARG}";
+            ;;
+        n)
+            NEW="${OPTARG}";
+            ;;
+        h)
+            getHelp;
+            ;;
+        *)
+            echo -e "\nInvalid option, please choose a valid one.\n";
+            getHelp;
+            exit;
+            ;;
+    esac
 done
+
+search_dir(){
+    DATA=`egrep ${OLD} ${DIR} -R  | awk -F \: '{print $1}' | sed 's/ //g'`
+    echo $DATA | tr ' ' '\n' > /tmp/tmp.file
+    
+    for i in `cat /tmp/tmp.file`;do
+        cp -a ${i[@]} ${i[@]}-backup-`date +%d%m%Y-%s`;
+        sed -i "s/"${OLD}"/"${NEW}"/g" ${i[@]};
+    done
+}
+
+search_file(){
+    cp -a ${FILE} "${FILE}_backup_`date +%d%m%Y_%s`";
+    sed -i "s/"${OLD}"/"${NEW}"/g" ${FILE};
+}
+
+if [[ -d $DIR ]]; then
+    search_dir;
+elif [[ -f ${FILE} ]]; then
+    search_file;
+elif [[ -z ${DIR} ]] || [[ -z ${FILE} ]] || [[ -z $1 ]] || [[ -z $2 ]]; then
+    getHelp;
+    exit 1;
+fi
