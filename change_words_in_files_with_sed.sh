@@ -13,6 +13,7 @@
 #       VERSION:  1.0
 #       CREATED:  30/01/2013 15:08:52 PM BRT
 #      REVISION:  ---
+#      Bug:	./change_words_in_files_with_sed.sh -f /tmp/test.txt -o /home\/something\/somethingelse -n /home/www Doesn't word yet need to something like: ./change_words_in_files_with_sed.sh -f /tmp/test.txt -o "\/home\/something\/somethingelse" -n "\/home\/www" 
 #===============================================================================
 
 getHelp(){
