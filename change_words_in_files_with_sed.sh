@@ -89,7 +89,3 @@ elif [[ -z ${DIR} ]] || [[ -z ${FILE} ]] || [[ -z ${OLD} ]] || [[ -z ${NEW} ]]; 
     getHelp;
     exit 1;
 fi
-
-
-if [[ ${OLD} -eq "/" ]]; then
-	echosed "s/\//\\//g"
