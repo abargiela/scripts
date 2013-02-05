@@ -63,11 +63,12 @@ done
 
 search_dir(){
     # Get data and parse
+    TMP_FILE="/tmp/tmp.file"
     DATA=`egrep ${OLD} ${DIR} -R  | awk -F \: '{print $1}' | sed 's/ //g'`
-    echo $DATA | tr ' ' '\n' > /tmp/tmp.file
+    echo $DATA | tr ' ' '\n' > ${TMP_FILE}
 
     # Get each file and execute the file backup and change the content
-    for i in `cat /tmp/tmp.file`;do
+    for i in `cat ${TMP_FILE}`;do
         cp -a ${i[@]} ${i[@]}-backup-`date +%d%m%Y-%s`;
         sed -i "s/"${OLD}"/"${NEW}"/g" ${i[@]};
     done
