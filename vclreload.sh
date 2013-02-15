@@ -2,7 +2,7 @@
 # Reload a varnish config
 # Author: Kristian Lyngstol
 
-# Modificated by A. Bargiela (alexandre@bargiela.com.br) in 15/02/2013
+# modified by A. Bargiela (alexandre@bargiela.com.br) in 15/02/2013
 # Adjusted to work getting the vcl(FILE)/varnishadm port(HOSTPORT) without intervention, just plug and play
 
 FILE=$(grep "\-f" /etc/default/varnish |head -1| awk '{print $2}')
