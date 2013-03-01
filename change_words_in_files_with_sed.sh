@@ -20,10 +20,12 @@
 
 getHelp(){
     echo -e "
-    Usage: ./change_words_in_files_with_sed.sh -d[for directory] or -f[for file] file -o oldWord -n newWord
-    Examples:
-        Directory: ./change_words_in_files_with_sed.sh -d /tmp -o oldStuff -n newStuff
-        File: ./change_words_in_files_with_sed.sh -f /tmp/file1.txt -o oldStuff -n newStuff 
+        Usage:   ./change_words_in_files_with_sed.sh -d[for directory] -o oldWord -n newWord # Used to search in whole directories
+           Or:   ./change_words_in_files_with_sed.sh -f[for file] file -o oldWord -n newWord # Used to search in a specific files
+
+     Examples:
+            Directory: ./change_words_in_files_with_sed.sh -d /tmp -o oldStuff -n newStuff
+                 File: ./change_words_in_files_with_sed.sh -f /tmp/file1.txt -o oldStuff -n newStuff 
 
     -d Directory you want scan to make.
     -f Especific file to change.	
