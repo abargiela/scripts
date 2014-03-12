@@ -4,7 +4,7 @@
 
 DOWNLOAD_PATH="/tmp"
 
-COMPANY="YOUR_COMPANY_HERE"
+COMPANY="tenzen"
 BUILD_PATH="${DOWNLOAD_PATH}/${VERSION}/"
 
 VARNISH_VERSION="3.0.5";
@@ -59,7 +59,10 @@ function compile_varnish(){
 
   cd ${VARNISH_PATH} && \
   ./autogen.sh && \
-  /configure --bindir="/usr/bin/" --libdir="/usr/lib/varnish/" --sysconfdir="/etc/varnish" --prefix="/opt/varnish-${VARNISH_VERSION}" && \
+  /configure --bindir="/usr/bin/" \
+         --libdir="/usr/lib/varnish/" \
+         --sysconfdir="/etc/varnish" \
+         --prefix="/opt/varnish-${VARNISH_VERSION}" && \
   make
 }
 
@@ -81,13 +84,25 @@ function compile_libvmod_digest(){
 function make_deb_varnish(){
   find  ${VARNISH_PATH} -name "*.deb" -exec rm -f {} \;
   cd ${VARNISH_PATH}
-  fpm -s dir -n ${COMPANY}-varnish -v ${VARNISH_VERSION} --prefix ${COMPANY} --description "Varnish ${COMPANY} custom"  -t deb ${VARNISH_PATH}
+
+  fpm -s dir \
+    -n ${COMPANY}-varnish \
+    -v ${VARNISH_VERSION} \
+    --prefix ${COMPANY} \
+    --description "Varnish ${COMPANY} custom" \
+      -t deb ${VARNISH_PATH}
 }
 
 function make_deb_libvmod_digest(){
   find  ${LIB_DIGEST_PATH} -name "*.deb" -exec rm -f {} \;
   cd ${LIB_DIGEST_PATH}
-  fpm -s dir -n ${COMPANY}-libvmod-digest -v ${LIB_DIGEST_VERSION} --prefix ${COMPANY} --description "libvmod-digest ${COMPANY} custom"  -t deb ${LIB_DIGEST_PATH}
+
+  fpm -s dir \
+    -n ${COMPANY}-libvmod-digest \
+    -v ${LIB_DIGEST_VERSION} \
+    --prefix ${COMPANY} \
+    --description "libvmod-digest ${COMPANY} custom" \
+    -t deb ${LIB_DIGEST_PATH}
 }
 
 test_packages;
