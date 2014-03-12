@@ -63,10 +63,10 @@ function compile_varnish(){
 
   cd ${VARNISH_PATH} && \
   ./autogen.sh && \
-  /configure --bindir="/usr/bin/" \
-         --libdir="/usr/lib/varnish/" \
-         --sysconfdir="/etc/varnish" \
-         --prefix="/opt/varnish-${VARNISH_VERSION}" && \
+  /configure  --bindir="/usr/bin/" \
+        --libdir="/usr/lib/varnish/" \
+        --sysconfdir="/etc/varnish" \
+        --prefix="/opt/varnish-${VARNISH_VERSION}" && \
   make
 }
 
