@@ -1,6 +1,10 @@
 #!/bin/bash
 
-#Script Tested in Ubuntu 12.04.2 LTS
+#
+# Usage: ./build_varnish_and_libvmod_digest.sh
+#
+# Script Tested in Ubuntu 12.04.2 LTS
+#
 
 DOWNLOAD_PATH="/tmp"
 
