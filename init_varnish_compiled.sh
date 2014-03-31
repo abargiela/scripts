@@ -5,7 +5,7 @@
 ##########################################
 # Read carefully the instructions below. #
 ##########################################
-# This script was created for a specific situation. I compiled so that developers can have the varnish locally on their development machines. 
+# This script was created for a specific situation. I compiled so that developers can have the varnish locally on their development machines in this case MacOS. 
 # The main idea was they had the varnish without having to install it. 
 # I can not guarantee that this script will work perfectly for your environment.
 # After compile Varnish, I suggest you to put this file into /opt/varnish-dev/etc/
