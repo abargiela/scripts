@@ -66,5 +66,5 @@ case $1 in
     stop;
     ;;
   *)
-    echo "Usage: ${VARNISH_PATH}/etc/init_varnish.sh (start|stop)";
+    echo "Usage: ${VARNISH_PATH}/etc/init_varnish_MacOS_compiled.sh (start|stop)";
 esac
