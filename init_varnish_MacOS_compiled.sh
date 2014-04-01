@@ -58,6 +58,16 @@ stop(){
   test $? -eq 0 &&  echo "Varnish stopped!" || echo "Varnish still running..."
 }
 
+status(){
+  pgrep varnishd > /dev/null 2>&1;
+  test $? -eq 0 &&  echo "Varnish is running..." || echo "Varnish is stopped"
+}
+
+restart(){
+  stop;
+  start;
+}
+
 case $1 in
   start)
     start;
@@ -65,6 +75,12 @@ case $1 in
   stop)
     stop;
     ;;
+  status)
+    status;
+    ;;
+  restart)
+    restart;
+    ;;
   *)
-    echo "Usage: ${VARNISH_PATH}/etc/init_varnish_MacOS_compiled.sh (start|stop)";
+    echo "Usage: ${VARNISH_PATH}/etc/init_varnish_MacOS_compiled.sh (start|stop|restart|status)";
 esac
