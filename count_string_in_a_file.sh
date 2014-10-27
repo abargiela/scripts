@@ -1,9 +1,22 @@
 #!/bin/bash
 
 # Referência: http://www.gnu.org/software/gawk/manual/html_node/Using-BEGIN_002fEND.html
-
-FILE=$1;
-STRING=$2;
+while getopts "a:f:s:h" opt; do
+  case $opt in
+    h)
+      HELP=${OPTARG};
+      ;;
+    a|f)
+      FILE=${OPTARG};
+      ;;
+    s)
+      STRING=${OPTARG};
+      ;;
+    *)
+      echo "Parameter not found, try -h to help"
+      ;;
+  esac
+done
 
 function procura_palavra(){
 
@@ -11,11 +24,9 @@ function procura_palavra(){
             print "Analisando arquivo '${FILE}'" }
             /'${STRING}'/ { ++valor }
           END{ 
-            print "'${2}' aparece " valor " vezes." }' $1
+            print "'${STRING}' aparece " valor " vezes." }' ${FILE}
 
 }
-
-
 
 function ajuda(){
 echo -e "
@@ -27,4 +38,12 @@ echo -e "
 "
 }
 
-procura_palavra $1 $2
+# Make the basic verifications.
+if [[ -f ${FILE} ]]; then
+    procura_palavra;
+elif [[ -n ${STRING} ]]; then
+    procura_palavra;
+elif [[ -z ${FILE} ]] || [[ -z ${STRING} ]]; then
+    ajuda;
+    exit 1;
+fi
