@@ -13,6 +13,7 @@ AWS_DIR="${HOME}/AWS-tools"
 AWS_ACCOUNT="foobar";
 ACCESS_KEY=fffffffffffffff
 SECRET_KEY=000000000000000
+JVM="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/"
 
 function setup {
 # Begin create directories
@@ -22,7 +23,7 @@ else
   echo -e "Creating AWS Tools directory at ${AWS_DIR} \n" ; mkdir  ${AWS_DIR} ${AWS_DIR}/.ec2_keys
 fi
 
-if [[ -d /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/ ]]; then 
+if [[ -d ${JVM} ]]; then 
   echo -e "Java check, it's fine! \n"
 else
   echo -e  "Please, download and install java
