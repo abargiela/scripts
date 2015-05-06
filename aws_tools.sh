@@ -99,8 +99,8 @@ function  load {
   export AUTO_SCALING_HOME="${AWS_DIR}/AutoScaling"
   export PATH="${PATH}:${AUTO_SCALING_HOME}/bin"
   
-  export ${ACCESS_KEY}
-  export ${SECRET_KEY}
+  export ACCESS_KEY=${ACCESS_KEY}
+  export SECRET_KEY=${SECRET_KEY}
   export EC2_PRIVATE_KEY=${AWS_DIR}/.ec2/${USER}-${AWS_ACCOUNT}.key
   export EC2_CERT=${AWS_DIR}/.ec2/${USER}-${AWS_ACCOUNT}.crt
   # End export variables
