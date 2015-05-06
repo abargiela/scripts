@@ -87,17 +87,17 @@ function  load {
   echo "Export variables..."
   export JAVA_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/
   
-  export EC2_HOME="${AWS_DIR}/ec2-api-tools"
-  export PATH="${PATH}:${EC2_HOME}/bin"
+  export AWS_EC2_HOME="${AWS_DIR}/ec2-api-tools"
+  export PATH="${PATH}:${AWS_EC2_HOME}/bin"
   
-  export ELB_HOME="${AWS_DIR}/ElasticLoadBalancing"
-  export PATH="${PATH}:${ELB_HOME}/bin"
+  export AWS_ELB_HOME="${AWS_DIR}/ElasticLoadBalancing"
+  export PATH="${PATH}:${AWS_ELB_HOME}/bin"
 
-  export CLOUDWATCH_HOME="${AWS_DIR}/CloudWatch"
-  export PATH="${PATH}:${CLOUDWATCH_HOME}/bin"
+  export AWS_CLOUDWATCH_HOME="${AWS_DIR}/CloudWatch"
+  export PATH="${PATH}:${AWS_CLOUDWATCH_HOME}/bin"
 
-  export AUTO_SCALING_HOME="${AWS_DIR}/AutoScaling"
-  export PATH="${PATH}:${AUTO_SCALING_HOME}/bin"
+  export AWS_AUTO_SCALING_HOME="${AWS_DIR}/AutoScaling"
+  export PATH="${PATH}:${AWS_AUTO_SCALING_HOME}/bin"
   
   export ACCESS_KEY=${ACCESS_KEY}
   export SECRET_KEY=${SECRET_KEY}
