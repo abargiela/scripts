@@ -50,5 +50,5 @@ function migration {
 check
 migration
 
-MY_LOCAL_PATH=
-URL=
+OLD_URL=
+NEW_URL=
