@@ -29,7 +29,7 @@ shift $((OPTIND -1))
 
 function check {
 	if [[ -z ${OLD_URL} ]] || [[ -z ${NEW_URL}  ]]; then 
-		echo "Missing parameter."
+		echo "Missing parameters, try use -h";
 		exit 1;
 	fi
 }
