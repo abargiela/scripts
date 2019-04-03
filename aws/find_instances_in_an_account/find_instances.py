@@ -4,8 +4,8 @@ import re
 # Requirements: python3
 # pip install boto3 re
 
-# Add the instances you want to search
-instances_ids = ['i-xxxxx', "i-xxxxxx"]
+# Add the instances you want to search, accept instances in multiple accounts
+instances_ids = ['i-xxxxxxxxx', 'i-xxxxxxxxx','i-xxxxxxxxx','i-xxxxxxxxx']
 # Add the credentials path must be the full path
 cred="/home/user/.aws/credentials"
 # Region you want
@@ -22,11 +22,11 @@ with open(cred) as file:
         session = boto3.Session(profile_name=profile,region_name=region)
         client = session.client('ec2')
 
-        try:
-            for instancesids in instances_ids:
+        for instancesids in instances_ids:
+            try:
                 response = client.describe_instances(
                 InstanceIds = [instancesids],
                 )
-                print(f"\nFOUND IN PROFILE: {profile}\n{response}\n" )
-        except: 
-            print(f"Not found in {profile}" )
+                print(f"\nInstance: {instancesids} found: {profile}\n{response}\n" )
+            except: 
+                print(f"Instance: {instancesids} not found: {profile}" )
