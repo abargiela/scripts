@@ -12,7 +12,7 @@ instances_len = len(sys.argv)
 x = 0
 
 # Add the credentials path must be the full path
-cred = "/home/alexandre.bargiela/.aws/credentials"
+cred = "/home/user/.aws/credentials"
 # Region you want
 region = "us-east-1"
 
