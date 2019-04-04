@@ -11,10 +11,17 @@ instances_len = len(sys.argv)
 x = 0
 
 # Add the credentials path must be the full path
-cred="/home/user/.aws/credentials"
+cred="/home/alexandre.bargiela/.aws/credentials"
 # Region you want
 region='us-east-1'
 
+
+if instances_len <= 1:
+    sys.exit("You need pass at least one id argument")
+else:
+    pass
+
+#import pdb; pdb.set_trace()
 with open(cred) as file:
     data = file.read()
     # get only the credentials [my-credential]
