@@ -1,28 +1,33 @@
 #!/bin/bash
 
 function backup(){
+    # Create a backup file in the current file directory
     cp "${FILE}" "${FILE}"-bkp-"$(date +"%m-%d-%Y_%H-%M-%S")"
     echo "Backup file created at: ${FILE}-bkp-$(date +"%m-%d-%Y_%H-%M-%S")"
 }
 
 function encrypt(){
+    # Test if is a regular file that you're trying to encrypt
     if [[ -f ${FILE}  ]];then
       backup
       tmpfile=$(mktemp)
       sed 's/^ *//; s/ *$//; /^$/d'  "${FILE}" | awk '{ system ("var1=`echo "$1"`;var2=`echo "$2" | base64`; echo $var1 $var2") }' > "${tmpfile}"
       cat "${tmpfile}" > "${FILE}"
       rm -f "${tmpfile}"
+    # If not a regular file, it's considered a string.
     else 
       echo -n "${FILE}" | base64
     fi
 }
 
 function decrypt(){
+  # Test if is a regular file that you're trying to decrypt
   if [[ -f ${FILE}  ]];then
     tmpfile=$(mktemp)
     awk '{ system ("var1=`echo "$1"`;var2=`echo "$2" | base64 -d`; echo $var1 $var2") }' "${FILE}" > "${tmpfile}"
     cat "${tmpfile}" > "${FILE}"
     rm -f  "${tmpfile}" 
+  # If not a regular file, it's considered a string.
   else 
     echo "${FILE}" | base64 -d
   fi
@@ -34,11 +39,12 @@ Example: $0 -e /tmp/file_with_plain_passwords.txt"
 }
 
 function check_params(){
-if [ -z "${FILE}" ]; then
-   echo "You didin't pass the file"; 
-   helper
-   exit 1;
-fi   
+  # Check if you're passing the parameter correctly
+  if [ -z "${FILE}" ]; then
+     echo "You didin't pass the file"; 
+     helper
+     exit 1;
+  fi   
 }
 
 while getopts ":ed" opt; do
