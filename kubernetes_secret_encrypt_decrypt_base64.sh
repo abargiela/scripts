@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# For help execute the script passing -h for help
+
 function backup(){
     # Create a backup file in the current file directory
     cp "${FILE}" "${FILE}"-bkp-"$(date +"%m-%d-%Y_%H-%M-%S")"
@@ -15,7 +17,7 @@ function encrypt(){
       cat "${tmpfile}" > "${FILE}"
       rm -f "${tmpfile}"
     # If not a regular file, it's considered a string.
-    else 
+    else
       echo -n "${FILE}" | base64
     fi
 }
@@ -26,9 +28,9 @@ function decrypt(){
     tmpfile=$(mktemp)
     awk '{ system ("var1=`echo "$1"`;var2=`echo "$2" | base64 -d`; echo $var1 $var2") }' "${FILE}" > "${tmpfile}"
     cat "${tmpfile}" > "${FILE}"
-    rm -f  "${tmpfile}" 
+    rm -f  "${tmpfile}"
   # If not a regular file, it's considered a string.
-  else 
+  else
     echo "${FILE}" | base64 -d
   fi
 }
@@ -36,30 +38,28 @@ function decrypt(){
 function helper(){
   echo -n "Usage: $0 [-e encrypt] [-d decrypt] file|string
 Example: $0 -e /tmp/file_with_plain_passwords.txt"
+  exit 1
 }
 
 function check_params(){
   # Check if you're passing the parameter correctly
   if [ -z "${FILE}" ]; then
      echo "You didin't pass the file"; 
-     helper
      exit 1;
-  fi   
+  fi
 }
 
-while getopts ":ed" opt; do
+while getopts ":edh" opt; do
   case ${opt} in
     e ) FILE=$2;
-        check_params && 
         encrypt
       ;;
-    d ) 
-        FILE=$2;
-        check_params &&
+    d ) FILE=$2;
         decrypt
       ;;
-    * ) helper
+    \?|h ) helper
       ;;
   esac
 done
 shift $((OPTIND -1))
+check_params
