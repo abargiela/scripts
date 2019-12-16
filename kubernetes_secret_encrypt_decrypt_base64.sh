@@ -6,21 +6,30 @@ function backup(){
 }
 
 function encrypt(){
-    tmpfile=$(mktemp)
-    sed 's/^ *//; s/ *$//; /^$/d'  "${FILE}" | awk '{ system ("var1=`echo "$1"`;var2=`echo "$2" | base64`; echo $var1 $var2") }' > "${tmpfile}"
-    cat "${tmpfile}" > "${FILE}"
-    rm -f "${tmpfile}"
+    if [[ -f ${FILE}  ]];then
+      backup
+      tmpfile=$(mktemp)
+      sed 's/^ *//; s/ *$//; /^$/d'  "${FILE}" | awk '{ system ("var1=`echo "$1"`;var2=`echo "$2" | base64`; echo $var1 $var2") }' > "${tmpfile}"
+      cat "${tmpfile}" > "${FILE}"
+      rm -f "${tmpfile}"
+    else 
+      echo -n "${FILE}" | base64
+    fi
 }
 
 function decrypt(){
+  if [[ -f ${FILE}  ]];then
     tmpfile=$(mktemp)
     awk '{ system ("var1=`echo "$1"`;var2=`echo "$2" | base64 -d`; echo $var1 $var2") }' "${FILE}" > "${tmpfile}"
     cat "${tmpfile}" > "${FILE}"
     rm -f  "${tmpfile}" 
+  else 
+    echo "${FILE}" | base64 -d
+  fi
 }
 
 function helper(){
-    echo -n "Usage: $0 [-e encrypt] [-d decrypt] file
+  echo -n "Usage: $0 [-e encrypt] [-d decrypt] file|string
 Example: $0 -e /tmp/file_with_plain_passwords.txt"
 }
 
@@ -35,7 +44,6 @@ fi
 while getopts ":ed" opt; do
   case ${opt} in
     e ) FILE=$2;
-        backup &&
         check_params && 
         encrypt
       ;;
@@ -44,7 +52,7 @@ while getopts ":ed" opt; do
         check_params &&
         decrypt
       ;;
-    *|h ) helper
+    * ) helper
       ;;
   esac
 done
