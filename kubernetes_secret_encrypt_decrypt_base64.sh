@@ -17,7 +17,6 @@ function decrypt(){
     awk '{ system ("var1=`echo "$1"`;var2=`echo "$2" | base64 -d`; echo $var1 $var2") }' "${FILE}" > "${tmpfile}"
     cat "${tmpfile}" > "${FILE}"
     rm -f  "${tmpfile}" 
-
 }
 
 function helper(){
@@ -35,8 +34,8 @@ fi
 
 while getopts ":ed" opt; do
   case ${opt} in
-    e ) backup &&
-        FILE=$2;
+    e ) FILE=$2;
+        backup &&
         check_params && 
         encrypt
       ;;
