@@ -44,7 +44,7 @@ Example: $0 -e /tmp/file_with_plain_passwords.txt"
 function check_params(){
   # Check if you're passing the parameter correctly
   if [ -z "${FILE}" ]; then
-     echo "You didin't pass the file"; 
+     echo -e "You didin't pass the file\nUse $0 -h for help.";
      exit 1;
   fi
 }
