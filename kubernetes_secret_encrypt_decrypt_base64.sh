@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# For help execute the script passing -h for help
+# This script was created to transform plain text passwords to base64.
+# For informations about the usage of this script, execute the script passing -h for help
 
 function backup(){
     # Create a backup file in the current file directory
@@ -13,7 +14,7 @@ function encrypt(){
     if [[ -f ${FILE}  ]];then
       backup
       tmpfile=$(mktemp)
-      sed 's/^ *//; s/ *$//; /^$/d'  "${FILE}" | awk '{ system ("var1=`echo "$1"`;var2=`echo "$2" | base64`; echo $var1 $var2") }' > "${tmpfile}"
+      sed 's/^ *//; s/ *$//; /^$/d' "${FILE}" | awk '{ system ("var1=$(echo "$1");var2=$(/bin/echo -n "$2" | base64); echo ${var1} ${var2}") }'
       cat "${tmpfile}" > "${FILE}"
       rm -f "${tmpfile}"
     # If not a regular file, it's considered a string.
