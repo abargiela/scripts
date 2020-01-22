@@ -14,7 +14,7 @@ function encrypt(){
     if [[ -f ${FILE}  ]];then
       backup
       tmpfile=$(mktemp)
-      sed 's/^ *//; s/ *$//; /^$/d' "${FILE}" | awk '{ system ("var1=$(echo "$1");var2=$(/bin/echo -n "$2" | base64); echo ${var1} ${var2}") }'
+      sed 's/^ *//; s/ *$//; /^$/d' "${FILE}" | awk '{ system ("var1=$(echo "$1");var2=$(/bin/echo -n "$2" | base64); echo ${var1} ${var2}") }' > "${tmpfile}"
       cat "${tmpfile}" > "${FILE}"
       rm -f "${tmpfile}"
     # If not a regular file, it's considered a string.
