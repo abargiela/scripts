@@ -45,10 +45,14 @@ jobs:
             # cloning the destination repo
             git clone --single-branch --branch $SRC_BRANCH "git@github.com:$DST_REPO.git" $CLONE_DIR
 
-            # Create the current branch in the destination repository
-            cd $CLONE_DIR
-            if [ -z "$DST_BRANCH" ]; then
-                git checkout -b $DST_BRANCH
+             # cloning the destination repo
+            BRANCH_EXISTS=$(git ls-remote --heads "git@github.com:$DST_REPO.git" $BRANCH | wc -l);
+            if [ $BRANCH_EXISTS -eq 0 ];then
+              git clone --depth 1 "git@github.com:$DST_REPO.git" $CLONE_DIR
+              cd $CLONE_DIR
+            else
+              git clone -b $BRANCH --depth 1 "git@github.com:$DST_REPO.git" $CLONE_DIR;
+              cd $CLONE_DIR
             fi
 
             # Cleaning all files on the destination repository
