@@ -5,6 +5,8 @@
 # I use it as an alias for the files I want to version and after close it it runs the function commit_annotation.
 # It's useful for me hope it is for you, use on your own risk I don't garantee you are versioning your files or that you are not going to lose it, so be careful.
 
+# You can add on your ~/.zsh_aliases: alias annotations="vim /home/${USER}/Documents/annotations/annotations.md; bash /home/${USER}/Documents/scripts/bash/commit_local_annotation.sh"
+
 ANNOTATIONS_PATH="/home/${USER}/Documents/annotations"
 
 check_if_its_git_repo(){
